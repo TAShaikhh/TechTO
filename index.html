@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoShopper AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <h1>Auto<br><span>Shopper</span></h1>
+                    </div>
+                    <button class="sidebar-toggle" id="sidebar-toggle">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                </div>
+                <nav class="main-nav">
+                    <a href="#" class="nav-item active" data-target="view-active-run">
+                        <i class="fa-solid fa-bolt"></i> <span>Active AI Run</span>
+                    </a>
+                    <a href="#" class="nav-item" data-target="view-shopping-list">
+                        <i class="fa-solid fa-list-check"></i> <span>Manage List</span>
+                    </a>
+                    <a href="#" class="nav-item" data-target="view-order-history">
+                        <i class="fa-solid fa-clock-rotate-left"></i> <span>Order History</span>
+                    </a>
+                </nav>
+
+                <div class="connectors-section">
+                    <h3>Active Connectors</h3>
+                    <div class="connector-item">
+                        <div class="connector-icon instacart"></div> <span>Instacart</span> <i class="fa-solid fa-check text-green"></i>
+                    </div>
+                    <div class="connector-item">
+                        <div class="connector-icon ubereats"></div> <span>Uber Eats</span> <i class="fa-solid fa-check text-green"></i>
+                    </div>
+                    <div class="connector-item">
+                        <div class="connector-icon doordash"></div> <span>DoorDash</span> <i class="fa-solid fa-check text-green"></i>
+                    </div>
+                    <div class="connector-item">
+                        <div class="connector-icon costco"></div> <span>Costco</span> <i class="fa-solid fa-check text-green"></i>
+                    </div>
+                </div>
+
+                <!-- Sidebar Cart -->
+                <div class="sidebar-cart-wrapper">
+                    <div class="sidebar-cart-header">
+                        <h3>Current Cart</h3>
+                        <span class="text-green" style="font-size: 11px; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Ready</span>
+                    </div>
+                    
+                    <div class="sidebar-quick-preferences">
+                        <div class="pref-header">
+                            <span>Preferences</span>
+                            <i class="fa-solid fa-pen edit-icon" style="cursor: pointer;"></i>
+                        </div>
+                        <div class="pref-tags">
+                            <span class="pref-tag">Halal</span>
+                            <span class="pref-tag">Organic</span>
+                            <span class="pref-tag">No Subs</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-cart-summary">
+                        <div class="cart-platform">
+                            <div class="platform-name"><div class="connector-icon costco"></div> Costco</div>
+                            <div class="platform-price">$12.99</div>
+                        </div>
+                        <div class="cart-platform">
+                            <div class="platform-name"><div class="connector-icon instacart"></div> Sprouts</div>
+                            <div class="platform-price">$4.48</div>
+                        </div>
+                        <div class="cart-platform">
+                            <div class="platform-name"><div class="connector-icon ubereats"></div> Uber Eats</div>
+                            <div class="platform-price">$5.49</div>
+                        </div>
+                        
+                        <div class="sidebar-cart-total">
+                            <span>Total</span>
+                            <span>$28.96</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-bottom">
+                <a href="#" class="bottom-btn checkout-btn" data-target="view-checkout">
+                    <i class="fa-solid fa-cart-shopping"></i> <span>Checkout Now</span>
+                </a>
+                <a href="#" class="bottom-btn">
+                    <i class="fa-regular fa-credit-card"></i> <span>Payment Methods</span>
+                </a>
+                <a href="#" class="bottom-btn">
+                    <i class="fa-regular fa-user"></i> <span>Account</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- VIEW: ACTIVE RUN (Dashboard) -->
+            <div id="view-active-run" class="view-section active">
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid">
+                    
+                    <!-- Top Row: AI Chatbot & AI Activity -->
+                    <div class="top-row">
+                        <!-- AI Chatbot (Top) -->
+                        <section class="card chat-card">
+                            <div class="card-header">
+                                <h2><i class="fa-solid fa-sparkles" style="color: var(--accent-blue);"></i> AI Assistant</h2>
+                            </div>
+                            <div class="chat-messages">
+                                <div class="msg ai">
+                                    Hi Stefan! I'm currently optimizing your 104-item list. I noticed DoorDash has a promo code for groceries today. Should I apply it?
+                                </div>
+                                <div class="msg user">
+                                    Yes, please apply it. Also, make sure all meat is strictly Halal.
+                                </div>
+                                <div class="msg ai">
+                                    Done! Promo code applied. I've updated your global preferences to strictly Halal for all meat products. I'll flag any items I can't verify.
+                                </div>
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" placeholder="Prompt AI (e.g. 'Find cheapest organic apples')">
+                                <button><i class="fa-solid fa-paper-plane"></i></button>
+                            </div>
+                        </section>
+
+                        <!-- AI Activity Panel (Bottom) -->
+                        <section class="card ai-activity-card">
+                            <div class="card-header">
+                                <div class="ai-title">
+                                    <div class="pulsing-dot"></div>
+                                    <h2>AI Agent Live Status</h2>
+                                </div>
+                                <div class="card-actions">
+                                    <i class="fa-solid fa-expand expand-icon" title="Expand Log"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-log">
+                                <div class="log-item active">
+                                    <div class="log-time">Just now</div>
+                                    <div class="log-content">
+                                        <strong>Comparing prices for Almond Milk</strong>
+                                        <p>Checking Instacart, Uber Eats, and DoorDash for Silk Unsweetened.</p>
+                                    </div>
+                                </div>
+                                <div class="log-item">
+                                    <div class="log-time">2 mins ago</div>
+                                    <div class="log-content">
+                                        <strong>Found best deal for Eggs</strong>
+                                        <p>Uber Eats (Safeway) has Free Range eggs for $5.49. Added to pending cart.</p>
+                                    </div>
+                                </div>
+                                <div class="log-item">
+                                    <div class="log-time">5 mins ago</div>
+                                    <div class="log-content">
+                                        <strong>Verified Halal Certification</strong>
+                                        <p>Confirmed Kirkland Signature Chicken Breast meets dietary requirements via Costco connector.</p>
+                                    </div>
+                                </div>
+                                <div class="log-item">
+                                    <div class="log-time">10 mins ago</div>
+                                    <div class="log-content">
+                                        <strong>Started Optimization Run</strong>
+                                        <p>Analyzing 104 items across 4 connected platforms to minimize delivery fees and item costs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                
+                <!-- Shopping List Section -->
+                <section class="card sellers-card" id="shopping-list-card">
+                    <div class="card-header">
+                        <h2>My Shopping List <span class="item-count">(104 items)</span></h2>
+                        <div class="card-actions">
+                            <div class="mini-categories">
+                                <span class="mini-cat active" data-category="all"><i class="fa-solid fa-border-all"></i> All</span>
+                                <span class="mini-cat" data-category="produce"><i class="fa-solid fa-apple-whole"></i> Produce</span>
+                                <span class="mini-cat" data-category="meat"><i class="fa-solid fa-drumstick-bite"></i> Meat</span>
+                                <span class="mini-cat" data-category="dairy"><i class="fa-solid fa-cheese"></i> Dairy</span>
+                                <span class="mini-cat" data-category="bakery"><i class="fa-solid fa-bread-slice"></i> Bakery</span>
+                                <span class="mini-cat" data-category="pantry"><i class="fa-solid fa-box-open"></i> Pantry</span>
+                            </div>
+                            <div class="search-bar">
+                                <i class="fa-solid fa-search"></i>
+                                <input type="text" placeholder="Search items...">
+                            </div>
+                            <i class="fa-solid fa-expand expand-icon" id="expand-list-btn" title="Expand List"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table sellers-table">
+                            <thead>
+                                <tr>
+                                    <th>Item Name <i class="fa-solid fa-chevron-down"></i></th>
+                                    <th>Specific Brand / Type</th>
+                                    <th>Dietary / Prefs</th>
+                                    <th>Target Price</th>
+                                    <th>AI Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 1. Chicken Breast -->
+                                <tr data-category="meat">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-drumstick-bite"></i></div>
+                                            <span>Chicken Breast</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Kirkland Signature</span></td>
+                                    <td><span class="pref-tag dietary">Halal</span></td>
+                                    <td>Under $15.00</td>
+                                    <td><span class="status-badge found"><i class="fa-solid fa-check"></i> Found $12.99 (Costco)</span></td>
+                                </tr>
+
+                                <!-- 2. Bananas -->
+                                <tr data-category="produce">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-apple-whole"></i></div>
+                                            <span>Bananas (Bunch)</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Chiquita or Dole</span></td>
+                                    <td><span class="pref-tag dietary">Organic</span></td>
+                                    <td>Under $3.00</td>
+                                    <td><span class="status-badge found"><i class="fa-solid fa-check"></i> Found $2.49 (Instacart)</span></td>
+                                </tr>
+
+                                <!-- 3. Almond Milk -->
+                                <tr data-category="dairy">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-bottle-water"></i></div>
+                                            <span>Almond Milk</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Silk</span></td>
+                                    <td><span class="pref-tag dietary">Unsweetened</span></td>
+                                    <td>Under $4.50</td>
+                                    <td><span class="status-badge searching"><i class="fa-solid fa-spinner fa-spin"></i> Comparing...</span></td>
+                                </tr>
+
+                                <!-- 4. Eggs -->
+                                <tr data-category="dairy">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-egg"></i></div>
+                                            <span>Eggs (Dozen)</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Any</span></td>
+                                    <td><span class="pref-tag dietary">Free Range</span></td>
+                                    <td>Under $6.00</td>
+                                    <td><span class="status-badge found"><i class="fa-solid fa-check"></i> Found $5.49 (Uber Eats)</span></td>
+                                </tr>
+
+                                <!-- 5. Jasmine Rice -->
+                                <tr data-category="pantry">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-bowl-rice"></i></div>
+                                            <span>Jasmine Rice (5lb)</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Mahatma</span></td>
+                                    <td><span class="pref-tag dietary">None</span></td>
+                                    <td>Under $10.00</td>
+                                    <td><span class="status-badge searching"><i class="fa-solid fa-spinner fa-spin"></i> Checking DoorDash...</span></td>
+                                </tr>
+
+                                <!-- 6. Carrots -->
+                                <tr data-category="produce">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-carrot"></i></div>
+                                            <span>Carrots</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Local Farm</span></td>
+                                    <td><span class="pref-tag dietary">Organic</span></td>
+                                    <td>Under $2.50</td>
+                                    <td><span class="status-badge found"><i class="fa-solid fa-check"></i> Found $1.99 (Instacart)</span></td>
+                                </tr>
+
+                                <!-- 7. Ground Beef -->
+                                <tr data-category="meat">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-burger"></i></div>
+                                            <span>Ground Beef (80/20)</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Any</span></td>
+                                    <td><span class="pref-tag dietary">Grass-fed</span></td>
+                                    <td>Under $8.00</td>
+                                    <td><span class="status-badge searching"><i class="fa-solid fa-spinner fa-spin"></i> Comparing...</span></td>
+                                </tr>
+
+                                <!-- 8. Sourdough Bread -->
+                                <tr data-category="bakery">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-bread-slice"></i></div>
+                                            <span>Sourdough Bread</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Boudin</span></td>
+                                    <td><span class="pref-tag dietary">Fresh</span></td>
+                                    <td>Under $5.00</td>
+                                    <td><span class="status-badge found"><i class="fa-solid fa-check"></i> Found $4.49 (Costco)</span></td>
+                                </tr>
+
+                                <!-- 9. Olive Oil -->
+                                <tr data-category="pantry">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-bottle-droplet"></i></div>
+                                            <span>Extra Virgin Olive Oil</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Pompeian</span></td>
+                                    <td><span class="pref-tag dietary">Cold Pressed</span></td>
+                                    <td>Under $12.00</td>
+                                    <td><span class="status-badge found"><i class="fa-solid fa-check"></i> Found $10.99 (Uber Eats)</span></td>
+                                </tr>
+
+                                <!-- 10. Greek Yogurt -->
+                                <tr data-category="dairy">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-ice-cream"></i></div>
+                                            <span>Greek Yogurt (32oz)</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Chobani</span></td>
+                                    <td><span class="pref-tag dietary">Plain Non-fat</span></td>
+                                    <td>Under $6.50</td>
+                                    <td><span class="status-badge searching"><i class="fa-solid fa-spinner fa-spin"></i> Checking Instacart...</span></td>
+                                </tr>
+
+                                <!-- 11. Spinach -->
+                                <tr data-category="produce">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-leaf"></i></div>
+                                            <span>Baby Spinach</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Earthbound Farm</span></td>
+                                    <td><span class="pref-tag dietary">Organic</span></td>
+                                    <td>Under $4.00</td>
+                                    <td><span class="status-badge searching"><i class="fa-solid fa-spinner fa-spin"></i> Comparing...</span></td>
+                                </tr>
+
+                                <!-- 12. Bagels -->
+                                <tr data-category="bakery">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-circle-notch"></i></div>
+                                            <span>Everything Bagels</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Thomas'</span></td>
+                                    <td><span class="pref-tag dietary">None</span></td>
+                                    <td>Under $4.50</td>
+                                    <td><span class="status-badge found"><i class="fa-solid fa-check"></i> Found $3.99 (DoorDash)</span></td>
+                                </tr>
+
+                                <!-- 13. Salmon Fillets -->
+                                <tr data-category="meat">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-fish"></i></div>
+                                            <span>Salmon Fillets</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Any</span></td>
+                                    <td><span class="pref-tag dietary">Wild Caught</span></td>
+                                    <td>Under $18.00</td>
+                                    <td><span class="status-badge searching"><i class="fa-solid fa-spinner fa-spin"></i> Checking Costco...</span></td>
+                                </tr>
+
+                                <!-- 14. Canned Tomatoes -->
+                                <tr data-category="pantry">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-jar"></i></div>
+                                            <span>Crushed Tomatoes</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Muir Glen</span></td>
+                                    <td><span class="pref-tag dietary">Organic</span></td>
+                                    <td>Under $3.00</td>
+                                    <td><span class="status-badge found"><i class="fa-solid fa-check"></i> Found $2.79 (Instacart)</span></td>
+                                </tr>
+
+                                <!-- 15. Cheddar Cheese -->
+                                <tr data-category="dairy">
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="item-img"><i class="fa-solid fa-cheese"></i></div>
+                                            <span>Sharp Cheddar Block</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="pref-tag brand">Tillamook</span></td>
+                                    <td><span class="pref-tag dietary">None</span></td>
+                                    <td>Under $5.50</td>
+                                    <td><span class="status-badge searching"><i class="fa-solid fa-spinner fa-spin"></i> Comparing...</span></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr class="total-row">
+                                    <td colspan="3">Total Estimated Cost</td>
+                                    <td>~$114.00</td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <span class="badge-green">8/104 Items Ready</span>
+                                            <button class="btn-primary" style="margin-top: 0;"><i class="fa-solid fa-cart-shopping"></i> Checkout Now</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </section>
+            </div>
+            </div> <!-- End of VIEW: ACTIVE RUN -->
+
+            <!-- VIEW: MANAGE SHOPPING LIST -->
+            <div id="view-shopping-list" class="view-section hidden">
+                <div class="page-header">
+                    <div>
+                        <h2>Manage Shopping List</h2>
+                        <span class="subtitle">Set your default items and global preferences</span>
+                    </div>
+                    <button class="btn-primary" id="start-ai-run-btn"><i class="fa-solid fa-play"></i> Start AI Run</button>
+                </div>
+
+                <div class="list-setup-grid">
+                    <!-- Left Column: Items -->
+                    <div class="setup-main">
+                        <div class="add-item-card card">
+                            <h3>Add New Item</h3>
+                            <form class="add-item-form">
+                                <div class="form-row">
+                                    <input type="text" placeholder="Item Name (e.g., Chicken Breast)" required>
+                                    <input type="text" placeholder="Preferred Brand (e.g., Kirkland)">
+                                </div>
+                                <div class="form-row">
+                                    <input type="text" placeholder="Specific Prefs (e.g., Halal, Boneless)">
+                                    <input type="number" placeholder="Target Price ($)" step="0.01">
+                                    <button type="button" class="btn-secondary">Add Item</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="catalog-card card">
+                            <h3>Quick Add from Catalog</h3>
+                            <div class="catalog-categories">
+                                <span class="cat-pill active" data-cat="produce"><i class="fa-solid fa-apple-whole"></i> Produce</span>
+                                <span class="cat-pill" data-cat="meat"><i class="fa-solid fa-drumstick-bite"></i> Meat & Seafood</span>
+                                <span class="cat-pill" data-cat="dairy"><i class="fa-solid fa-cheese"></i> Dairy</span>
+                                <span class="cat-pill" data-cat="bakery"><i class="fa-solid fa-bread-slice"></i> Bakery</span>
+                                <span class="cat-pill" data-cat="pantry"><i class="fa-solid fa-box-open"></i> Pantry</span>
+                            </div>
+                            <div class="catalog-grid">
+                                <!-- Produce -->
+                                <div class="catalog-item" data-cat="produce">
+                                    <div class="ci-info"><i class="fa-solid fa-apple-whole"></i><span>Fuji Apples</span></div>
+                                    <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <div class="catalog-item" data-cat="produce">
+                                    <div class="ci-info"><i class="fa-solid fa-carrot"></i><span>Baby Carrots</span></div>
+                                    <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <div class="catalog-item" data-cat="produce">
+                                    <div class="ci-info"><i class="fa-solid fa-leaf"></i><span>Romaine Lettuce</span></div>
+                                    <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <!-- Meat -->
+                                <div class="catalog-item hidden" data-cat="meat">
+                                    <div class="ci-info"><i class="fa-solid fa-fish"></i><span>Salmon Fillets</span></div>
+                                    <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <div class="catalog-item hidden" data-cat="meat">
+                                    <div class="ci-info"><i class="fa-solid fa-drumstick-bite"></i><span>Chicken Thighs</span></div>
+                                    <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <!-- Dairy -->
+                                <div class="catalog-item hidden" data-cat="dairy">
+                                    <div class="ci-info"><i class="fa-solid fa-cheese"></i><span>Mozzarella</span></div>
+                                    <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <div class="catalog-item hidden" data-cat="dairy">
+                                    <div class="ci-info"><i class="fa-solid fa-bottle-water"></i><span>Oat Milk</span></div>
+                                    <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <!-- Bakery -->
+                                <div class="catalog-item hidden" data-cat="bakery">
+                                    <div class="ci-info"><i class="fa-solid fa-bread-slice"></i><span>Whole Wheat Bread</span></div>
+                                    <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <!-- Pantry -->
+                                <div class="catalog-item hidden" data-cat="pantry">
+                                    <div class="ci-info"><i class="fa-solid fa-jar"></i><span>Peanut Butter</span></div>
+                                    <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <div class="catalog-item hidden" data-cat="pantry">
+                                    <div class="ci-info"><i class="fa-solid fa-bowl-rice"></i><span>Brown Rice</span></div>
+                                    <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="saved-items-card card">
+                            <h3>My Standard Items (104)</h3>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Item Name</th>
+                                            <th>Brand / Type</th>
+                                            <th>Preferences</th>
+                                            <th>Target Price</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="main-item-row">
+                                            <td>Chicken Breast</td>
+                                            <td>Kirkland Signature</td>
+                                            <td><span class="pref-tag dietary">Halal</span></td>
+                                            <td>$15.00</td>
+                                            <td><i class="fa-solid fa-trash text-red action-icon"></i></td>
+                                        </tr>
+                                        <tr class="alt-row">
+                                            <td colspan="5">
+                                                <div class="alt-container">
+                                                    <span class="alt-label"><i class="fa-solid fa-shuffle"></i> Alts:</span>
+                                                    <span class="alt-pill">Any Organic Chicken <i class="fa-solid fa-xmark"></i></span>
+                                                    <span class="alt-pill">Turkey Breast <i class="fa-solid fa-xmark"></i></span>
+                                                    <button class="add-alt-btn" title="Add Alternative"><i class="fa-solid fa-plus"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="main-item-row">
+                                            <td>Bananas (Bunch)</td>
+                                            <td>Chiquita or Dole</td>
+                                            <td><span class="pref-tag dietary">Organic</span></td>
+                                            <td>$3.00</td>
+                                            <td><i class="fa-solid fa-trash text-red action-icon"></i></td>
+                                        </tr>
+                                        <tr class="alt-row">
+                                            <td colspan="5">
+                                                <div class="alt-container">
+                                                    <span class="alt-label"><i class="fa-solid fa-shuffle"></i> Alts:</span>
+                                                    <span class="alt-pill">Plantains <i class="fa-solid fa-xmark"></i></span>
+                                                    <button class="add-alt-btn" title="Add Alternative"><i class="fa-solid fa-plus"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="main-item-row">
+                                            <td>Almond Milk</td>
+                                            <td>Silk</td>
+                                            <td><span class="pref-tag dietary">Unsweetened</span></td>
+                                            <td>$4.50</td>
+                                            <td><i class="fa-solid fa-trash text-red action-icon"></i></td>
+                                        </tr>
+                                        <tr class="alt-row">
+                                            <td colspan="5">
+                                                <div class="alt-container">
+                                                    <span class="alt-label"><i class="fa-solid fa-shuffle"></i> Alts:</span>
+                                                    <span class="alt-pill">Oat Milk <i class="fa-solid fa-xmark"></i></span>
+                                                    <span class="alt-pill">Soy Milk <i class="fa-solid fa-xmark"></i></span>
+                                                    <button class="add-alt-btn" title="Add Alternative"><i class="fa-solid fa-plus"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="main-item-row">
+                                            <td>Eggs (Dozen)</td>
+                                            <td>Any</td>
+                                            <td><span class="pref-tag dietary">Free Range</span></td>
+                                            <td>$6.00</td>
+                                            <td><i class="fa-solid fa-trash text-red action-icon"></i></td>
+                                        </tr>
+                                        <tr class="alt-row">
+                                            <td colspan="5">
+                                                <div class="alt-container">
+                                                    <span class="alt-label"><i class="fa-solid fa-shuffle"></i> Alts:</span>
+                                                    <span class="alt-pill">Cage Free Eggs <i class="fa-solid fa-xmark"></i></span>
+                                                    <button class="add-alt-btn" title="Add Alternative"><i class="fa-solid fa-plus"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Preferences -->
+                    <div class="setup-sidebar">
+                        <div class="budget-card card">
+                            <h3>Monthly Grocery Budget</h3>
+                            <div class="budget-input-group">
+                                <span class="currency-symbol">$</span>
+                                <input type="number" id="monthly-budget" value="600" step="10">
+                            </div>
+                            <div class="budget-progress">
+                                <div class="budget-bar"><div class="budget-fill" style="width: 45%;"></div></div>
+                                <div class="budget-stats">
+                                    <span>Est. Spend: $270</span>
+                                    <span>Remaining: $330</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="preferences-card card">
+                            <h3>Global Dietary Preferences</h3>
+                            <p class="text-muted" style="font-size: 12px; margin-bottom: 16px;">These apply to all items unless overridden.</p>
+                            
+                            <div class="pref-toggles">
+                                <label class="toggle-row">
+                                    <span><i class="fa-solid fa-star-and-crescent text-yellow"></i> Strictly Halal</span>
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <label class="toggle-row">
+                                    <span><i class="fa-solid fa-leaf text-green"></i> Vegan</span>
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                                <label class="toggle-row">
+                                    <span><i class="fa-solid fa-carrot text-green"></i> Vegetarian</span>
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                                <label class="toggle-row">
+                                    <span><i class="fa-solid fa-wheat-awn-circle-exclamation text-yellow"></i> Gluten-Free</span>
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                                <label class="toggle-row">
+                                    <span><i class="fa-solid fa-seedling text-green"></i> Organic Preferred</span>
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <label class="toggle-row">
+                                    <span><i class="fa-solid fa-ban text-red"></i> No Substitutions</span>
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="macros-card card">
+                            <h3>Macro & Calorie Calculator</h3>
+                            <form id="macro-form" class="macro-form">
+                                <div class="form-row">
+                                    <input type="number" id="calc-age" placeholder="Age" required>
+                                    <select id="calc-gender" required>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-row">
+                                    <input type="number" id="calc-weight" placeholder="Weight (lbs)" required>
+                                    <input type="number" id="calc-height" placeholder="Height (inches)" required>
+                                </div>
+                                <select id="calc-activity" required class="activity-select">
+                                    <option value="1.2">Sedentary (little/no exercise)</option>
+                                    <option value="1.375">Lightly active (1-3 days/wk)</option>
+                                    <option value="1.55">Moderately active (3-5 days/wk)</option>
+                                    <option value="1.725">Very active (6-7 days/wk)</option>
+                                </select>
+                                <button type="button" id="calc-btn" class="btn-secondary" style="width: 100%;">Calculate Maintenance</button>
+                            </form>
+                            <div id="macro-results" class="macro-results hidden">
+                                <div class="cal-circle">
+                                    <span id="result-cals">2450</span>
+                                    <small>kcal/day</small>
+                                </div>
+                                <div class="macro-split">
+                                    <div class="macro-item"><span class="m-label">Protein</span><span id="result-p" class="m-val">150g</span></div>
+                                    <div class="macro-item"><span class="m-label">Carbs</span><span id="result-c" class="m-val">250g</span></div>
+                                    <div class="macro-item"><span class="m-label">Fat</span><span id="result-f" class="m-val">80g</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End of VIEW: MANAGE SHOPPING LIST -->
+
+            <!-- VIEW: ORDER HISTORY -->
+            <div id="view-order-history" class="view-section hidden">
+                <div class="page-header">
+                    <h2>Order History</h2>
+                </div>
+                
+                <div class="history-list">
+                    <!-- Order 1 -->
+                    <div class="history-card card">
+                        <div class="history-header">
+                            <div class="history-title">
+                                <h4>May 18, 2026</h4>
+                                <span class="text-muted">4 Platforms • 82 Items</span>
+                            </div>
+                            <div class="history-price">$245.50</div>
+                        </div>
+                        <div class="history-platforms">
+                            <div class="connector-icon costco"></div>
+                            <div class="connector-icon instacart"></div>
+                            <div class="connector-icon ubereats"></div>
+                            <div class="connector-icon doordash"></div>
+                        </div>
+                        <div class="history-footer">
+                            <div class="history-status">
+                                <span class="badge-green"><i class="fa-solid fa-check-double"></i> Delivered</span>
+                                <span class="savings-text"><i class="fa-solid fa-piggy-bank"></i> AI Saved: $34.20</span>
+                            </div>
+                            <button class="btn-secondary">Reorder All</button>
+                        </div>
+                    </div>
+
+                    <!-- Order 2 -->
+                    <div class="history-card card">
+                        <div class="history-header">
+                            <div class="history-title">
+                                <h4>May 04, 2026</h4>
+                                <span class="text-muted">2 Platforms • 45 Items</span>
+                            </div>
+                            <div class="history-price">$132.80</div>
+                        </div>
+                        <div class="history-platforms">
+                            <div class="connector-icon costco"></div>
+                            <div class="connector-icon instacart"></div>
+                        </div>
+                        <div class="history-footer">
+                            <div class="history-status">
+                                <span class="badge-green"><i class="fa-solid fa-check-double"></i> Delivered</span>
+                                <span class="savings-text"><i class="fa-solid fa-piggy-bank"></i> AI Saved: $18.50</span>
+                            </div>
+                            <button class="btn-secondary">Reorder All</button>
+                        </div>
+                    </div>
+
+                    <!-- Order 3 -->
+                    <div class="history-card card">
+                        <div class="history-header">
+                            <div class="history-title">
+                                <h4>April 20, 2026</h4>
+                                <span class="text-muted">3 Platforms • 95 Items</span>
+                            </div>
+                            <div class="history-price">$289.15</div>
+                        </div>
+                        <div class="history-platforms">
+                            <div class="connector-icon costco"></div>
+                            <div class="connector-icon instacart"></div>
+                            <div class="connector-icon doordash"></div>
+                        </div>
+                        <div class="history-footer">
+                            <div class="history-status">
+                                <span class="badge-green"><i class="fa-solid fa-check-double"></i> Delivered</span>
+                                <span class="savings-text"><i class="fa-solid fa-piggy-bank"></i> AI Saved: $42.00</span>
+                            </div>
+                            <button class="btn-secondary">Reorder All</button>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End of VIEW: ORDER HISTORY -->
+
+            <!-- VIEW: CHECKOUT -->
+            <div id="view-checkout" class="view-section hidden">
+                <div class="page-header">
+                    <div>
+                        <h2>Checkout</h2>
+                        <span class="subtitle">Review and confirm your automated order</span>
+                    </div>
+                </div>
+                
+                <div class="checkout-grid">
+                    <div class="checkout-main">
+                        <div class="card">
+                            <h3>Delivery Details</h3>
+                            <div class="delivery-info">
+                                <p><strong>Stefan Fiedler</strong></p>
+                                <p>123 AI Automation Way, Suite 400</p>
+                                <p>San Francisco, CA 94105</p>
+                                <p style="margin-top: 12px; color: var(--accent-green); font-weight: 600;">
+                                    <i class="fa-regular fa-clock"></i> Delivery Time: Today, 4:00 PM - 6:00 PM
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Order Items Breakdown</h3>
+                            <div class="platform-group">
+                                <h4 class="platform-name"><div class="connector-icon costco"></div> Costco Delivery</h4>
+                                <ul class="checkout-item-list">
+                                    <li><span>1x Kirkland Signature Chicken Breast</span> <span>$12.99</span></li>
+                                </ul>
+                            </div>
+                            <div class="platform-group">
+                                <h4 class="platform-name"><div class="connector-icon instacart"></div> Instacart (Sprouts)</h4>
+                                <ul class="checkout-item-list">
+                                    <li><span>1x Bananas (Bunch)</span> <span>$2.49</span></li>
+                                    <li><span>1x Carrots</span> <span>$1.99</span></li>
+                                </ul>
+                            </div>
+                            <div class="platform-group">
+                                <h4 class="platform-name"><div class="connector-icon ubereats"></div> Uber Eats (Safeway)</h4>
+                                <ul class="checkout-item-list">
+                                    <li><span>1x Free Range Eggs (Dozen)</span> <span>$5.49</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checkout-sidebar">
+                        <div class="card">
+                            <h3>Order Summary</h3>
+                            <div class="summary-line"><span>Subtotal</span><span>$22.96</span></div>
+                            <div class="summary-line"><span>Delivery Fees</span><span>$3.99</span></div>
+                            <div class="summary-line"><span>Service Fees</span><span>$2.01</span></div>
+                            <div class="summary-line total"><span>Total</span><span>$28.96</span></div>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Payment Method</h3>
+                            <div class="payment-method">
+                                <i class="fa-brands fa-cc-apple-pay" style="font-size: 32px;"></i>
+                                <span>Apple Pay</span>
+                            </div>
+                            <button class="btn-primary" style="width: 100%; margin-top: 16px; font-size: 16px; padding: 16px;">Confirm & Pay $28.96</button>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End of VIEW: CHECKOUT -->
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
